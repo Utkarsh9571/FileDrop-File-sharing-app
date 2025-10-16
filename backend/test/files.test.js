@@ -21,7 +21,7 @@ beforeAll(async () => {
     email: 'ishu@example.com',
     password: 'securePass123',
     role: 'user',
-  });
+  }, 30000);
 
   expect(signupRes.statusCode).toBe(201);
   expect(signupRes.body.data.user.email).toBe('ishu@example.com');

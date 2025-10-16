@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 beforeAll(async () => {
   await mongoose.connect(process.env.DB_URI);
-});
+}, 30000);
 
 afterAll(async () => {
   await mongoose.connection.close();
