@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const fileSchema = new mongoose.Schema({
   fileName: {
@@ -23,7 +23,7 @@ const fileSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   expiresAt: {
@@ -35,6 +35,6 @@ const fileSchema = new mongoose.Schema({
   },
 });
 
-const FileUpload = mongoose.model("fileUpload", fileSchema);
+const FileUpload = mongoose.model('fileUpload', fileSchema);
 
 export default FileUpload;
