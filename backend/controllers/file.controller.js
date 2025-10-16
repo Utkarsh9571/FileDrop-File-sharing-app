@@ -1,19 +1,19 @@
-import FileUpload from '../models/fileUpload.model.js';
+import FileUpload from "../models/fileUpload.model.js";
 import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
-} from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import crypto from 'crypto';
-import dotenv from 'dotenv';
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import crypto from "crypto";
+import dotenv from "dotenv";
 import {
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
   AWS_REGION,
   AWS_BUCKET_NAME,
-} from '../config/env.js';
+} from "../config/env.js";
 
 dotenv.config();
 
@@ -30,11 +30,11 @@ export const uploadFile = async (req, res, next) => {
     const file = req.file;
     const userId = req.user.id;
 
-    if (!file) return res.status(400).json({ message: 'No file provided' });
+    if (!file) return res.status(400).json({ message: "No file provided" });
 
     const uniqueKey = `${userId}/${Date.now()}-${crypto
       .randomBytes(8)
-      .toString('hex')}-${file.originalname}`;
+      .toString("hex")}-${file.originalname}`;
 
     const uploadParams = {
       Bucket: AWS_BUCKET_NAME,
@@ -55,7 +55,7 @@ export const uploadFile = async (req, res, next) => {
       owner: userId,
     });
 
-    res.status(201).json({ message: 'File uploaded', file: newFile });
+    res.status(201).json({ message: "File uploaded", file: newFile });
   } catch (error) {
     next(error);
   }
@@ -65,7 +65,7 @@ export const shareFile = async (req, res, next) => {
   try {
     const file = await FileUpload.findById(req.params.id);
     if (!file || file.owner.toString() !== req.user.id) {
-      return res.status(404).json({ error: 'File not found or unauthorized' });
+      return res.status(404).json({ error: "File not found or unauthorized" });
     }
 
     const command = new GetObjectCommand({
@@ -85,7 +85,7 @@ export const deleteFile = async (req, res, next) => {
   try {
     const file = await FileUpload.findById(req.params.id);
     if (!file || file.owner.toString() !== req.user.id) {
-      return res.status(404).json({ error: 'File not found or unauthorized' });
+      return res.status(404).json({ error: "File not found or unauthorized" });
     }
 
     await s3.send(
@@ -97,7 +97,7 @@ export const deleteFile = async (req, res, next) => {
 
     await FileUpload.deleteOne({ _id: file._id });
 
-    res.json({ message: 'File deleted successfully' });
+    res.json({ message: "File deleted successfully" });
   } catch (error) {
     next(error);
   }
@@ -107,7 +107,7 @@ export const downloadFile = async (req, res, next) => {
   try {
     const file = await FileUpload.findById(req.params.id);
     if (!file || file.owner.toString() !== req.user.id) {
-      return res.status(404).json({ message: 'File not found or unauthorized' });
+      return res.status(404).json({ message: "File not found or unauthorized" });
     }
 
     const cmd = new GetObjectCommand({
