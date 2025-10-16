@@ -1,0 +1,23 @@
+# Node
+node_modules/
+.env
+build/
+dist/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+
+# Kubernetes
+*.yaml.backup
+*.log
+*.crt
+*.key
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
