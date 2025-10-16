@@ -10,7 +10,7 @@
     "lint": "eslint . --config eslint.config.js",
     "lint:fix": "eslint . --config eslint.config.js --fix",
     "format": "prettier --write .",
-    "format:check": "prettier -- check ."
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.892.0",

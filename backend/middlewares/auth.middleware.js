@@ -12,7 +12,10 @@ const authorize = async (req, res, next) => {
     }
 
     // 2. Check for token in Authorization header
-    else if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    else if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer ')
+    ) {
       token = req.headers.authorization.split(' ')[1];
     }
 

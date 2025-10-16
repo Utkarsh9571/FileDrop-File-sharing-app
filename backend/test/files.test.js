@@ -9,7 +9,7 @@ import path from 'path';
 let token;
 let uploadedFileId;
 
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 beforeAll(async () => {
   await mongoose.connect(process.env.DB_URI);
@@ -57,7 +57,9 @@ afterAll(async () => {
 
 describe('File API Endpoints', () => {
   it('should load files for authenticated user', async () => {
-    const res = await request(app).get('/api/v1/files').set('Authorization', `Bearer ${token}`);
+    const res = await request(app)
+      .get('/api/v1/files')
+      .set('Authorization', `Bearer ${token}`);
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body.files)).toBe(true);
   });

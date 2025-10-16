@@ -24,7 +24,10 @@ describe('API Endpoints', () => {
   describe('GET /api', () => {
     it('should return API message', async () => {
       const response = await request(app).get('/api').expect(200);
-      expect(response.body).toHaveProperty('message', 'FileDrop App is running');
+      expect(response.body).toHaveProperty(
+        'message',
+        'FileDrop App is running'
+      );
     });
   });
 

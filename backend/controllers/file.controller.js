@@ -107,7 +107,9 @@ export const downloadFile = async (req, res, next) => {
   try {
     const file = await FileUpload.findById(req.params.id);
     if (!file || file.owner.toString() !== req.user.id) {
-      return res.status(404).json({ message: 'File not found or unauthorized' });
+      return res
+        .status(404)
+        .json({ message: 'File not found or unauthorized' });
     }
 
     const cmd = new GetObjectCommand({
