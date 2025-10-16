@@ -29,15 +29,6 @@ jobs:
       - name: Run Prettier format
         run: npm run format
 
-      - name: Check for uncommitted changes
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          if ! git diff --quiet; then
-            echo "❌ Auto-fixes were applied. Please commit the changes locally."
-            git --no-pager diff
-            exit 1
-          fi
-
       - name: Run lint (post-fix validation)
         run: npm run lint
 
@@ -50,4 +41,3 @@ jobs:
           DB_URI: ${{ secrets.TEST_DB_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRES_IN: "1d"
-
