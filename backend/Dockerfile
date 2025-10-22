@@ -6,9 +6,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --production
 
-# Copy only the production env file first
-COPY backend/.env.production.local .env.production.local
-
 # Copy everything else except .env
 COPY . .
 
