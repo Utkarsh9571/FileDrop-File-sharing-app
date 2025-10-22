@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filedrop-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filedrop-backend
+  template:
+    metadata:
+      labels:
+        app: filedrop-backend
+    spec:
+      containers:
+        - name: backend
+          image: gcr.io/filddrop-filesharing-app/filedrop-api-backend
+          ports:
+            - containerPort: 5500
+          env:
+            - name: NODE_ENV
+              value: "production"
+          envFrom:
+            - secretRef:
+                name: backend-env

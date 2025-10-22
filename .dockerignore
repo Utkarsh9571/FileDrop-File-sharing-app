@@ -1,0 +1,21 @@
+# Secrets and env files
+.env
+.env.*
+*.local
+
+# Node junk
+node_modules
+npm-debug.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Test and dev files
+coverage
+*.test.js
+*.spec.js
+
+# Git
+.git
+.gitignore

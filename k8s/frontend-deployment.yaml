@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filedrop-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filedrop-frontend
+  template:
+    metadata:
+      labels:
+        app: filedrop-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: gcr.io/filddrop-filesharing-app/filedrop-frontend:nginx
+          ports:
+            - containerPort: 80

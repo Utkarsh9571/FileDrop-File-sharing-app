@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5500/api/v1",
+  baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 // Attach token if present. Do not override Content-Type for FormData uploads.

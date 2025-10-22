@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5500:5500"
+    env_file:
+      - ./backend/.env.production.local
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4173:4173"
+    environment: VITE_BACKEND_URL=https://filedrop.us-backend.space/api/v1
+    depends_on:
+      - backend

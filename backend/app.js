@@ -13,14 +13,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:4173', 'http://filedrop.us-backend.space'],
     credentials: true,
   })
 );
 
 app.use(express.json());
 
-// ✅ Health and API routes first (so they’re not shadowed)
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
@@ -49,7 +48,7 @@ app.get('*', (req, res, next) => {
     req.path.startsWith('/health') ||
     req.path.startsWith('/nonexistent')
   ) {
-    return next(); // Let the 404 handler catch it
+    return next();
   }
 
   res.sendFile(path.join(frontendPath, 'index.html'));
