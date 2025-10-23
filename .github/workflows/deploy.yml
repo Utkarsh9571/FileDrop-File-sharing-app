@@ -49,6 +49,12 @@ jobs:
         run: |
           gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
 
+      - name: Install GKE auth plugin
+        run: |
+          curl -sSL https://github.com/GoogleCloudPlatform/cloud-sdk-docker/raw/master/kubectl/gke-gcloud-auth-plugin-linux-amd64 -o /usr/local/bin/gke-gcloud-auth-plugin
+          chmod +x /usr/local/bin/gke-gcloud-auth-plugin
+          echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $GITHUB_ENV
+
       - name: Apply Kubernetes manifests
         run: |
           kubectl apply -f k8s/
