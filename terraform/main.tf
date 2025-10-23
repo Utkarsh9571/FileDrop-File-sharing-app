@@ -7,7 +7,6 @@ resource "google_container_cluster" "filedrop" {
   name     = "filedrop-cluster"
   location = var.region
   initial_node_count = 1
-
   deletion_protection = false
 
   node_config {
@@ -15,5 +14,12 @@ resource "google_container_cluster" "filedrop" {
     disk_size_gb = 20
     disk_type    = "pd-standard"
   }
+
+  addons_config {
+    http_load_balancing {
+      disabled = false
+    }
+  }
 }
+
 

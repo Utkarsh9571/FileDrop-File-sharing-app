@@ -14,7 +14,7 @@ jobs:
       REGION: us-east1
       CLUSTER_NAME: filedrop-cluster
       FRONTEND_IMAGE: filedrop-frontend:nginx
-      BACKEND_IMAGE: filedrop-backend:latest
+      BACKEND_IMAGE: filedrop-api-backend
 
     steps:
       - name: Checkout code
@@ -42,8 +42,8 @@ jobs:
       - name: Build and push backend image
         run: |
           cd backend
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_IMAGE }} .
-          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.BACKEND_IMAGE }}
+          docker build -t gcr.io/filddrop-filesharing-app/${{ env.BACKEND_IMAGE }} .
+          docker push gcr.io/filddrop-filesharing-app/${{ env.BACKEND_IMAGE }}
 
       - name: Get GKE credentials
         run: |

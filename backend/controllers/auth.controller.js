@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 import User from '../models/user.model.js';
-import { JWT_SECRET, JWT_EXPIRES_IN } from '../config/env.js';
 
 dotenv.config();
 
@@ -29,8 +28,8 @@ export const signUp = async (req, res, next) => {
     });
 
     // ✅ Token generation must be here
-    const token = jwt.sign({ userId: newUser._id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
+    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || '1d',
     });
 
     res.status(201).json({
@@ -66,8 +65,8 @@ export const signIn = async (req, res, next) => {
       throw error;
     }
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || '1d',
     });
 
     res.status(200).json({

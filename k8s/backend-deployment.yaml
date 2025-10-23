@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: filedrop-backend
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: gcr.io/filddrop-filesharing-app/filedrop-api-backend
+          image: gcr.io/filddrop-filesharing-app/filedrop-api-backend:v2
           ports:
             - containerPort: 5500
           env:
@@ -23,3 +24,9 @@ spec:
           envFrom:
             - secretRef:
                 name: backend-env
+          readinessProbe:
+            httpGet:
+              path: /api
+              port: 5500
+            initialDelaySeconds: 5
+            periodSeconds: 10
